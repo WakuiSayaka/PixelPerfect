@@ -164,7 +164,7 @@ namespace PixelPerfect
             }
             ImGui.End();
 
-            if (!_ring && !_ring2) return;
+            if (!_ring && !_ring2 && !_ring3) return;
 
             if (_ring) { 
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
