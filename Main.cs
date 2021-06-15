@@ -26,12 +26,18 @@ namespace PixelPerfect
         private float _radius = 10f;
         private int _segments = 100;
         private float _thickness = 10f;
-        //二つ目
+        //2
         private bool _ring2;
         private Num.Vector4 _colRing2 = new Num.Vector4(0.4f, 0.4f, 0.4f, 0.5f);
         private float _radius2 = 10f;
         private int _segments2 = 100;
         private float _thickness2 = 10f;
+        //3
+        private bool _ring3;
+        private Num.Vector4 _colRing3 = new Num.Vector4(0.4f, 0.4f, 0.4f, 0.5f);
+        private float _radius3 = 10f;
+        private int _segments3 = 100;
+        private float _thickness3 = 10f;
 
         public void Initialize(DalamudPluginInterface pI)
         {
@@ -48,6 +54,13 @@ namespace PixelPerfect
             _colRing2 = _configuration.ColRing2;
             _segments2 = _configuration.Segments2;
             _radius2 = _configuration.Radius2;
+
+            //3
+            _ring3 = _configuration.Ring3;
+            _thickness3 = _configuration.Thickness3;
+            _colRing3 = _configuration.ColRing3;
+            _segments3 = _configuration.Segments3;
+            _radius3 = _configuration.Radius3;
 
             _enabled = _configuration.Enabled;
             _combat = _configuration.Combat;
@@ -88,12 +101,18 @@ namespace PixelPerfect
                 ImGui.DragFloat("Thickness", ref _thickness);
                 ImGui.DragInt("Smoothness", ref _segments);
                 ImGui.ColorEdit4("Ring Colour", ref _colRing, ImGuiColorEditFlags.NoInputs);
-                ImGui.Separator(); //二つ目
+                ImGui.Separator(); //2
                 ImGui.Checkbox("Ring2", ref _ring2);
                 ImGui.DragFloat("Ring2_Yalms", ref _radius2);
                 ImGui.DragFloat("Ring2_Thickness", ref _thickness2);
                 ImGui.DragInt("Ring2_Smoothness", ref _segments2);
                 ImGui.ColorEdit4("Ring2_Ring Colour", ref _colRing2, ImGuiColorEditFlags.NoInputs);
+                ImGui.Separator(); //3
+                ImGui.Checkbox("Ring3", ref _ring3);
+                ImGui.DragFloat("Ring3_Yalms", ref _radius3);
+                ImGui.DragFloat("Ring3_Thickness", ref _thickness3);
+                ImGui.DragInt("Ring3_Smoothness", ref _segments3);
+                ImGui.ColorEdit4("Ring3_Ring Colour", ref _colRing3, ImGuiColorEditFlags.NoInputs);
 
                 if (ImGui.Button("Save and Close Config"))
                 {
@@ -145,9 +164,9 @@ namespace PixelPerfect
             }
             ImGui.End();
 
-            if (!_ring) {
-                return; 
-            } else { 
+            if (!_ring && !_ring2) return;
+
+            if (_ring) { 
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
                 ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(0, 0));
                 ImGui.Begin("Ring", ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBackground);
@@ -157,18 +176,26 @@ namespace PixelPerfect
                 ImGui.PopStyleVar();
             }
 
-            //二つ目
-            if (!_ring2)
-            {
-                return;
-            }
-            else
-            {
+            //2
+            if (_ring2) {
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
                 ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(0, 0));
                 ImGui.Begin("Ring2", ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBackground);
                 ImGui.SetWindowSize(ImGui.GetIO().DisplaySize);
                 DrawRingWorld(_pluginInterface.ClientState.LocalPlayer, _radius2, _segments2, _thickness2, ImGui.GetColorU32(_colRing2));
+                ImGui.End();
+                ImGui.PopStyleVar();
+            }
+
+
+            //3
+            if (_ring3)
+            {
+                ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
+                ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(0, 0));
+                ImGui.Begin("Ring2", ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBackground);
+                ImGui.SetWindowSize(ImGui.GetIO().DisplaySize);
+                DrawRingWorld(_pluginInterface.ClientState.LocalPlayer, _radius3, _segments3, _thickness3, ImGui.GetColorU32(_colRing3));
                 ImGui.End();
                 ImGui.PopStyleVar();
             }
@@ -198,12 +225,18 @@ namespace PixelPerfect
             _configuration.Segments = _segments;
             _configuration.Ring = _ring;
             _configuration.Radius = _radius;
-            //二つ目
+            //2
             _configuration.ColRing2 = _colRing2;
             _configuration.Thickness2 = _thickness2;
             _configuration.Segments2 = _segments2;
             _configuration.Ring2 = _ring2;
             _configuration.Radius2 = _radius2;
+            //3
+            _configuration.ColRing3 = _colRing3;
+            _configuration.Thickness3 = _thickness3;
+            _configuration.Segments3 = _segments3;
+            _configuration.Ring3 = _ring3;
+            _configuration.Radius3 = _radius3;
             _pluginInterface.SavePluginConfig(_configuration);
         }
 
@@ -238,6 +271,12 @@ namespace PixelPerfect
         public float Thickness2 { get; set; } = 10f;
         public bool Ring2 { get; set; }
         public float Radius2 { get; set; } = 2f;
+        public Num.Vector4 ColRing3 { get; set; } = new Num.Vector4(0.4f, 0.4f, 0.4f, 0.5f);
+        public int Segments3 { get; set; } = 100;
+        public float Thickness3 { get; set; } = 10f;
+        public bool Ring3 { get; set; }
+        public float Radius3 { get; set; } = 2f;
+
 
     }
 
