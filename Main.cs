@@ -7,9 +7,9 @@ using Num = System.Numerics;
 using Dalamud.Game.Command;
 using Dalamud.Interface;
 
-namespace PixelPerfect
+namespace PixelPerfectPlus
 {
-    public class PixelPerfect : IDalamudPlugin
+    public class PixelPerfectPlus : IDalamudPlugin
     {
         public string Name => "Pixel Perfect Plus";
         private DalamudPluginInterface _pluginInterface;
