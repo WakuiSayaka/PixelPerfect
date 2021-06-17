@@ -11,7 +11,7 @@ namespace PixelPerfect
 {
     public class PixelPerfect : IDalamudPlugin
     {
-        public string Name => "Pixel Perfect";
+        public string Name => "Pixel Perfect Plus";
         private DalamudPluginInterface _pluginInterface;
         private Config _configuration;
         private bool _enabled = true;
@@ -70,9 +70,9 @@ namespace PixelPerfect
             _col2 = _configuration.Col2;
             _pluginInterface.UiBuilder.OnBuildUi += DrawWindow;
             _pluginInterface.UiBuilder.OnOpenConfigUi += ConfigWindow;
-            _pluginInterface.CommandManager.AddHandler("/pp", new CommandInfo(Command)
+            _pluginInterface.CommandManager.AddHandler("/ppp", new CommandInfo(Command)
             {
-                HelpMessage = "Pixel Perfect config."
+                HelpMessage = "Pixel Perfect Plus config."
             });
         }
 
@@ -80,7 +80,7 @@ namespace PixelPerfect
         {
             _pluginInterface.UiBuilder.OnBuildUi -= DrawWindow;
             _pluginInterface.UiBuilder.OnOpenConfigUi -= ConfigWindow;
-            _pluginInterface.CommandManager.RemoveHandler("/pp");
+            _pluginInterface.CommandManager.RemoveHandler("/ppp");
         }
 
         private void DrawWindow()
@@ -88,7 +88,7 @@ namespace PixelPerfect
             if (_config)
             {
                 ImGui.SetNextWindowSize(new Num.Vector2(300, 500), ImGuiCond.FirstUseEver);
-                ImGui.Begin("Pixel Perfect Config", ref _config);
+                ImGui.Begin("Pixel Perfect Plus Config", ref _config);
                 ImGui.Checkbox("Hitbox", ref _enabled);
                 ImGui.Checkbox("Outer Ring", ref _circle);
                 ImGui.Checkbox("Combat Only", ref _combat);
@@ -124,10 +124,10 @@ namespace PixelPerfect
                 ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
                 ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
 
-                if (ImGui.Button("Buy Haplo a Hot Chocolate"))
-                {
-                    System.Diagnostics.Process.Start("https://ko-fi.com/haplo");
-                }
+                //if (ImGui.Button("Buy Haplo a Hot Chocolate"))
+                //{
+                //    System.Diagnostics.Process.Start("https://ko-fi.com/haplo");
+                //}
                 ImGui.PopStyleColor(3);
                 ImGui.End();
             }
@@ -148,7 +148,7 @@ namespace PixelPerfect
                 new SharpDX.Vector3(actor.Position.X, actor.Position.Z, actor.Position.Y),
                 out var pos)) return;
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(pos.X - 10 - ImGuiHelpers.MainViewport.Pos.X, pos.Y - 10- ImGuiHelpers.MainViewport.Pos.Y));
-            ImGui.Begin("Pixel Perfect", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
+            ImGui.Begin("Pixel Perfect Plus", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
             ImGui.GetWindowDrawList().AddCircleFilled(
                 new Num.Vector2(pos.X, pos.Y),
                 2f,
