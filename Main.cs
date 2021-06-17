@@ -11,7 +11,7 @@ namespace PixelPerfect
 {
     public class PixelPerfect : IDalamudPlugin
     {
-        public string Name => "Pixel Perfect Plus";
+        public string Name => "Pixel Perfect";
         private DalamudPluginInterface _pluginInterface;
         private Config _configuration;
         private bool _enabled = true;
@@ -148,7 +148,7 @@ namespace PixelPerfect
                 new SharpDX.Vector3(actor.Position.X, actor.Position.Z, actor.Position.Y),
                 out var pos)) return;
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(pos.X - 10 - ImGuiHelpers.MainViewport.Pos.X, pos.Y - 10- ImGuiHelpers.MainViewport.Pos.Y));
-            ImGui.Begin("Pixel Perfect Plus", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
+            ImGui.Begin("Pixel Perfect", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
             ImGui.GetWindowDrawList().AddCircleFilled(
                 new Num.Vector2(pos.X, pos.Y),
                 2f,
@@ -193,7 +193,7 @@ namespace PixelPerfect
             {
                 ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, new Num.Vector2(0, 0));
                 ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(0, 0));
-                ImGui.Begin("Ring2", ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBackground);
+                ImGui.Begin("Ring3", ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoNav | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoBackground);
                 ImGui.SetWindowSize(ImGui.GetIO().DisplaySize);
                 DrawRingWorld(_pluginInterface.ClientState.LocalPlayer, _radius3, _segments3, _thickness3, ImGui.GetColorU32(_colRing3));
                 ImGui.End();
