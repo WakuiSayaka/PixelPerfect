@@ -7,11 +7,11 @@ using Num = System.Numerics;
 using Dalamud.Game.Command;
 using Dalamud.Interface;
 
-namespace PixelPerfect
+namespace PixelPerfectPlus
 {
-    public class PixelPerfect : IDalamudPlugin
+    public class PixelPerfectPlus : IDalamudPlugin
     {
-        public string Name => "Pixel Perfect";
+        public string Name => "Pixel Perfect Plus";
         private DalamudPluginInterface _pluginInterface;
         private Config _configuration;
         private bool _enabled = true;
@@ -148,7 +148,7 @@ namespace PixelPerfect
                 new SharpDX.Vector3(actor.Position.X, actor.Position.Z, actor.Position.Y),
                 out var pos)) return;
             ImGuiHelpers.SetNextWindowPosRelativeMainViewport(new Num.Vector2(pos.X - 10 - ImGuiHelpers.MainViewport.Pos.X, pos.Y - 10- ImGuiHelpers.MainViewport.Pos.Y));
-            ImGui.Begin("Pixel Perfect", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
+            ImGui.Begin("Pixel Perfect Plus", ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoInputs | ImGuiWindowFlags.NoBackground);
             ImGui.GetWindowDrawList().AddCircleFilled(
                 new Num.Vector2(pos.X, pos.Y),
                 2f,
