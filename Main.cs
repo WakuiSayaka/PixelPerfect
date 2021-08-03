@@ -120,18 +120,19 @@ namespace PixelPerfectPlus
                     _config = false;
                 }
                 ImGui.SameLine();
-                ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
-                ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
-                ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
+                //ImGui.PushStyleColor(ImGuiCol.Button, 0xFF000000 | 0x005E5BFF);
+                //ImGui.PushStyleColor(ImGuiCol.ButtonActive, 0xDD000000 | 0x005E5BFF);
+                //ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xAA000000 | 0x005E5BFF);
 
-                //if (ImGui.Button("Buy Haplo a Hot Chocolate"))
-                //{
-                //    System.Diagnostics.Process.Start("https://ko-fi.com/haplo");
-                //}
-                ImGui.PopStyleColor(3);
+                if (ImGui.Button("Profiles"))
+                {
+                    Profiles();
+                }
+                //ImGui.PopStyleColor(3);
                 ImGui.End();
             }
 
+            //hitboxチェック
             if (!_enabled || _pluginInterface.ClientState.LocalPlayer == null) return;
             if(_combat)
             {
@@ -154,7 +155,15 @@ namespace PixelPerfectPlus
                 2f,
                 ImGui.GetColorU32(_col),
                 100);
-            if(_circle)
+
+
+            //15m後方にcircle キャラクターの角度の参考: https://goatcorp.github.io/Dalamud/api/Dalamud.Game.ClientState.Actors.Types.Actor.html#Dalamud_Game_ClientState_Actors_Types_Actor_Rotation　
+            //角度と長さをxy座標に変換した後2次元座標に変換して描画
+            //WorldToScreenでゲーム内の3次元座標を2次元座標に変換->ImGuiで2次元座標を指定してモニターに描画 （DrawRingWorld）
+
+
+
+            if (_circle)
             {
                 ImGui.GetWindowDrawList().AddCircle(
                     new Num.Vector2(pos.X, pos.Y),
@@ -240,11 +249,18 @@ namespace PixelPerfectPlus
             _pluginInterface.SavePluginConfig(_configuration);
         }
 
+
+        private void Profiles()
+        {
+            //ジョブプロファイル画面
+        }
+
         private void DrawRingWorld(Dalamud.Game.ClientState.Actors.Types.Actor actor, float radius, int numSegments, float thicc, uint colour)
         {
             var seg = numSegments / 2;
             for (var i = 0; i <= numSegments; i++)
             {
+                //WorldToScreen(x,y,z,pos) ゲーム内の３次元座標（x,y,z）を指定して2次元座標に変換されたものがpos(pox.X,pos.Y)に入る？
                 _pluginInterface.Framework.Gui.WorldToScreen(new SharpDX.Vector3(actor.Position.X + (radius * (float)Math.Sin((Math.PI / seg) * i)), actor.Position.Z, actor.Position.Y + (radius * (float)Math.Cos((Math.PI / seg) * i))), out SharpDX.Vector2 pos);
                 ImGui.GetWindowDrawList().PathLineTo(new Num.Vector2(pos.X, pos.Y));
             }
